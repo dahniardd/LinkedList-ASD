@@ -61,57 +61,67 @@ public class LinkedList06 {
             System.out.print("Linked list kosong");
         }
     }
-    public void removeFirst() {
-        if (head == null) {
-            return;
+    public int getData(int index) {
+        Node06 currentNode= head;
+        for (int i=0; i < index; i++) {
+            currentNode = currentNode.next;
         }
-        head = head.next;
+        return currentNode.data;
+    }
+    public int indexOf(int key) {
+        Node06 currentNode= head;
+        int index = 0;
+        
+        while (currentNode != null && currentNode.data != key) {
+            currentNode = currentNode.next;
+            index++;
+        }
+        if (currentNode == null) {
+            return -1;
+        } else {
+            return index;
+        }
+    }
+    public void removeFirst() {
+        if (!isEmpty()) {
+            head = head.next;
+        } else {
+            System.out.println("Linked list kosong");
+        }
     }
     public void removeLast() {
-        if (head == null) {
-            return;
-        }
-        if (head.next == null) {
-            head = null;
-            return;
-        }
-        Node06 current = head;
-        Node06 previous = null;
-        while (current.next != null) {
-            previous = current;
-            current = current.next;
-        }
-        previous.next = null;
-    }
-    public void remove(int data) {
-        if (head == null) {
-            return; // Linked list kosong
-        }
-        // Mencari node sebelum node yang akan dihapus
-        Node06 previous = null;
-        Node06 current = head;
-        while (current != null && current.data != data) {
-            previous = current;
-            current = current.next;
-        }
-        // Jika node tidak ditemukan
-        if (current == null) {
-            return; // Node dengan nilai data tertentu tidak ada
-        }
-        // Menghapus node
-        if (previous == null) {
-            head = current.next;
+        if (isEmpty()) {
+            System.out.println("Linked list kosong");
+        } else if (head.next == null) {
+            head= null;
         } else {
-            previous.next = current.next;
+            Node06 currentNode = head;
+        
+            while (currentNode.next != null) {
+                if (currentNode.next.next == null) {
+                    currentNode.next = null;
+                    break;
+                }
+                currentNode = currentNode.next;
+            }
         }
     }
-    public void printList() {
-        Node06 current = head;
-        while (current != null) {
-            System.out.print(current.data + " -> ");
-            current = current.next;
+    public void remove(int key) {
+        if (isEmpty()) {
+            System.out.println("Linked list kosong");
+        } else if (head.data == key) {
+            removeFirst();
+        } else {
+            Node06 currentNode = head;
+        
+            while (currentNode.next != null) {
+                if (currentNode.next.data == key) {
+                    currentNode.next = currentNode.next.next;
+                    break;
+                }
+                currentNode = currentNode.next;
+            }
         }
-        System.out.println("null");
     }
 }
 
